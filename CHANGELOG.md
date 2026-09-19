@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.7.0] - 2026-09-14
+## [0.7.0] - 2026-09-20
 
 - Extract immutable source-code slices by line, text, or language structure.
 - Preserve exact source content, byte ranges, and original line numbers.
