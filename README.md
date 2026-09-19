@@ -1,4 +1,4 @@
-# ALTO CodeSlicer
+# ALTO Code Slicer
 
 Extract immutable source-code slices by line, text, or language structure while preserving exact
 byte ranges and line numbers.
@@ -9,7 +9,7 @@ byte ranges and line numbers.
 &nbsp; ![License](https://img.shields.io/github/license/altophp/code-slicer?label=License&labelColor=050608&color=00B7FF)
 &nbsp; [![GitHub Sponsors](https://img.shields.io/github/sponsors/smnandre?logo=githubsponsors&logoColor=00B7FF&label=%20Sponsor&labelColor=050608&color=00B7FF)](https://github.com/sponsors/smnandre)
 
-CodeSlicer loads a complete source and progressively narrows an immutable `CodeSlice`. Every slice
+Code Slicer loads a complete source and progressively narrows an immutable `CodeSlice`. Every slice
 keeps its language, source name, and original line numbers.
 
 ```php
@@ -23,20 +23,22 @@ echo $slice->content();
 echo $slice->startLine();
 ```
 
-Selection stops before presentation. CodeSlicer returns source ranges and leaves syntax tokens,
+Selection stops before presentation. Code Slicer returns source ranges and leaves syntax tokens,
 annotations, highlighting, and rendering to downstream consumers.
 
 ## Installation
 
-Install ALTO CodeSlicer with Composer:
+This package is currently distributed from its development branch; no stable
+release is published yet. Configure its VCS repository before installing it:
 
 ```bash
-composer require alto/code-slicer
+composer config repositories.alto-code-slicer vcs https://github.com/altophp/code-slicer
+composer require alto/code-slicer:dev-main
 ```
 
-CodeSlicer requires PHP 8.4 or later, the tokenizer extension, and `alto/language`.
+Code Slicer requires PHP 8.4 or later, the tokenizer extension, and `alto/language`.
 
-## Quick Start
+## Quick start
 
 Select a PHP method from an in-memory source:
 
@@ -156,10 +158,16 @@ and annotations onto the selected range. `content()` remains the exact, unmodifi
 `CodeSlice` is the raw result of source extraction. Its complete source and byte range let a
 consumer analyze the full context before projecting the selected region into its own model.
 
-CodeSlicer deliberately provides no HTML, SVG, Markdown, syntax tokens, themes, remote loaders, or
+Code Slicer deliberately provides no HTML, SVG, Markdown, syntax tokens, themes, remote loaders, or
 source rewriting.
 
-See the [documentation](docs/index.md) for installation, a guided example, and the public API.
+## Documentation
+
+- [Documentation home](docs/index.md)
+- [Installation](docs/installation.md)
+- [Getting started](docs/getting-started.md)
+- [Selectors](docs/selectors.md)
+- [Languages](docs/languages/index.md)
 
 ## Contributing
 
@@ -178,7 +186,7 @@ Changes to public behavior should include tests and documentation.
 
 ## Support
 
-ALTO CodeSlicer is open source. You can support its continued development through
+ALTO Code Slicer is open source. You can support its continued development through
 [GitHub Sponsors](https://github.com/sponsors/smnandre).
 
 Sharing this package with others or
@@ -186,5 +194,5 @@ Sharing this package with others or
 
 ## License
 
-ALTO CodeSlicer is released by [ALTO PHP](https://altophp.com) under the
+ALTO Code Slicer is released by [ALTO PHP](https://altophp.com) under the
 [MIT License](LICENSE).

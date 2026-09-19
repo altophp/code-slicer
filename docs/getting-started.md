@@ -1,64 +1,65 @@
 # Getting started
 
-Start from the complete source so every slice can retain its original context and line numbers.
+Extract one method from a complete PHP source and print its original line
+number. This gives you an excerpt that remains tied to its source when you
+publish or highlight it.
 
-## Select a PHP method
+## Extract a PHP method
+
+### Prepare the script
+
+After [installation](installation.md), create `extract.php` beside the
+`vendor` directory. This example includes its input, so no separate source
+file is needed:
 
 ```php
+<?php
+
+require __DIR__.'/vendor/autoload.php';
+
 use Alto\Code\Slicer\CodeSource;
 
-$slice = CodeSource::fromFile('src/Checkout.php')
+$code = <<<'PHP'
+<?php
+final class Checkout
+{
+    public function complete(): string
+    {
+        return 'Order complete';
+    }
+}
+PHP;
+
+$slice = CodeSource::fromString($code, 'php')
     ->slice()
     ->class('Checkout')
     ->method('complete');
 
-echo $slice->content();
-echo $slice->startLine();
+printf("Starts at line %d\n", $slice->startLine());
+echo $slice->content(), "\n";
 ```
 
-The class selector narrows the search scope. The method selector then returns the declaration,
-including attached documentation and attributes.
+### Run and check the result
 
-For an in-memory PHP fragment, pass the language explicitly. Structural selectors accept PHP with
-or without an opening tag:
+Run the script from the project directory:
 
-```php
-$slice = CodeSource::fromString(
-    'final class Checkout {}',
-    'php',
-)->slice()->class('Checkout');
+```sh
+php extract.php
 ```
 
-## Select exact lines
+The output is:
 
-Line numbers are one-based, inclusive, and refer to the complete source:
-
-```php
-$slice = $source->lines(12, 18);
+```text
+Starts at line 4
+    public function complete(): string
+    {
+        return 'Order complete';
+    }
 ```
 
-Line endings remain byte-for-byte identical to the source.
+The class selector narrows the search to `Checkout`; the method selector
+returns `complete` with its closing brace. Indentation and line numbers still
+refer to the complete input. Each selection returns a new immutable slice.
 
-## Select between markers
-
-Text selectors search only within the current slice:
-
-```php
-$slice = $source->slice()
-    ->after("// example:start\n")
-    ->before("\n// example:end");
-```
-
-Each selector returns a new immutable `CodeSlice`.
-
-## Use the complete context downstream
-
-```php
-$completeSource = $slice->source()->content();
-$range = $slice->range();
-
-$range->start; // inclusive byte offset
-$range->end;   // exclusive byte offset
-```
-
-A parser or highlighter can analyze the complete source, then project its result onto that range.
+Continue with [PHP selectors](languages/php.md) to select methods from files and include
+their attached documentation.
