@@ -1,18 +1,14 @@
 # Installation
 
-This package is currently distributed from its development branch; no stable
-release is published yet. Use an explicit VCS repository for evaluation.
-
 Code Slicer requires PHP 8.4 or later and the Tokenizer extension. Composer
 installs its `alto/language` dependency automatically.
 
 ## Install
 
-Run these commands in your project directory:
+Run this command in your project directory:
 
 ```sh
-composer config repositories.alto-code-slicer vcs https://github.com/altophp/code-slicer
-composer require alto/code-slicer:dev-main
+composer require alto/code-slicer
 ```
 
 ## Verify the installation

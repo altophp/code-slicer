@@ -28,12 +28,8 @@ annotations, highlighting, and rendering to downstream consumers.
 
 ## Installation
 
-This package is currently distributed from its development branch; no stable
-release is published yet. Configure its VCS repository before installing it:
-
 ```bash
-composer config repositories.alto-code-slicer vcs https://github.com/altophp/code-slicer
-composer require alto/code-slicer:dev-main
+composer require alto/code-slicer
 ```
 
 Code Slicer requires PHP 8.4 or later, the tokenizer extension, and `alto/language`.
