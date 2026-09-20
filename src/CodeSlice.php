@@ -84,6 +84,69 @@ final readonly class CodeSlice
         return $this->withRange(new SourceRange($this->range->start, $position));
     }
 
+    /**
+     * Keep the content after the first line containing the text, excluding its line ending.
+     */
+    public function afterLine(string $text): self
+    {
+        $line = $this->matchingLine($text);
+        $start = $line < $this->source->lineCount()
+            ? $this->source->rangeForLines($line + 1, $line + 1)->start
+            : $this->range->end;
+
+        return $this->withRange(new SourceRange(min($start, $this->range->end), $this->range->end));
+    }
+
+    /**
+     * Keep the content before the first line containing the text, excluding the preceding line ending.
+     */
+    public function beforeLine(string $text): self
+    {
+        $line = $this->matchingLine($text);
+        $end = $line > 1
+            ? $this->source->rangeForLines($line - 1, $line - 1)->end
+            : $this->range->start;
+
+        return $this->withRange(new SourceRange($this->range->start, max($end, $this->range->start)));
+    }
+
+    /**
+     * Keep the content from the first line containing the text, including that line.
+     */
+    public function fromLine(string $text): self
+    {
+        $line = $this->matchingLine($text);
+        $start = $this->source->rangeForLines($line, $line)->start;
+
+        return $this->withRange(new SourceRange(max($start, $this->range->start), $this->range->end));
+    }
+
+    /**
+     * Keep the content through the first line containing the text, excluding its line ending.
+     */
+    public function throughLine(string $text): self
+    {
+        $line = $this->matchingLine($text);
+        $end = $this->source->rangeForLines($line, $line)->end;
+
+        return $this->withRange(new SourceRange($this->range->start, min($end, $this->range->end)));
+    }
+
+    private function matchingLine(string $text): int
+    {
+        if ('' === $text || str_contains($text, "\n") || str_contains($text, "\r")) {
+            throw new \InvalidArgumentException('The searched text must be non-empty and contain no line breaks.');
+        }
+
+        $position = strpos($this->source->content(), $text, $this->range->start);
+
+        if (false === $position || $position + strlen($text) > $this->range->end) {
+            throw SourceTextNotFound::forText($text);
+        }
+
+        return $this->source->lineAtOffset($position);
+    }
+
     public function beforeNextClass(): self
     {
         $class = $this->classes()->nextClass($this->range);
