@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+
+- Add inclusive and exclusive literal line-boundary selectors.
+
 ## [0.7.0] - 2026-09-20
 
 - Extract immutable source-code slices by line, text, or language structure.

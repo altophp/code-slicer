@@ -43,12 +43,16 @@ case-sensitive occurrence fully contained in the current slice.
 | `lines(int $start, int $end): CodeSlice` | Select inclusive original source lines. Their complete range must fit inside the current slice. |
 | `after(string $text): CodeSlice` | Keep bytes after the matched text; exclude the match. |
 | `before(string $text): CodeSlice` | Keep bytes before the matched text; exclude the match. |
+| `fromLine(string $text): CodeSlice` | Start at the first line containing the text; include that line. |
+| `throughLine(string $text): CodeSlice` | End at the first line containing the text; include that line. |
+| `afterLine(string $text): CodeSlice` | Start after the first line containing the text. |
+| `beforeLine(string $text): CodeSlice` | End before the first line containing the text. |
 
 `lines()` throws `InvalidSourceRange` for invalid line numbers or a range
 outside the current slice. Text selectors throw `SourceTextNotFound` when no
 complete match is found. Empty search text throws `InvalidArgumentException`.
 
-See [Languages](languages/index.md#text-and-lines) for a complete chained example.
+See [Text](languages/text.md) for complete HTML, SVG, YAML, Markdown, and environment-file examples.
 
 ## Select declarations
 

@@ -11,6 +11,8 @@ and literal-text selection.
 
 ## Text and lines
 
+[Text](text.md) covers line ranges and literal line boundaries for HTML, SVG, YAML, Markdown, environment files, and unknown source types.
+
 HTML, SVG, YAML, Markdown, environment files, and unknown source types remain
 ordinary text. Select an inclusive range of original lines with `lines()`, or
 chain `after()` and `before()` around known literal boundaries. These selectors

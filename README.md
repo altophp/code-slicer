@@ -105,6 +105,14 @@ $slice = $source->slice()
     ->before('// example:end');
 ```
 
+Line-boundary selectors include or exclude complete matching lines:
+
+```php
+$slice = $source->slice()
+    ->afterLine('<!-- example:start -->')
+    ->beforeLine('<!-- example:end -->');
+```
+
 Missing boundaries and attempts to expand a slice throw explicit exceptions rather than returning
 an approximate result.
 
